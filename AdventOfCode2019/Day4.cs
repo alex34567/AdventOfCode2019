@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-
-namespace AdventOfCode2019
+﻿namespace AdventOfCode2019
 {
     internal class Day4 : ISolution
     {
-        public int DayN => 4; 
+        public int DayN => 4;
+
         public (string, string?) GetAns(string[] input)
         {
             var splitMarker = input[0].IndexOf('-');
@@ -35,20 +31,13 @@ namespace AdventOfCode2019
                         twoAdjacent = true;
 
                         if (inAdjacentGroup)
-                        {
                             tooManyInAdjacentGroup = true;
-                        }
                         else
-                        {
                             inAdjacentGroup = true;
-                        }
                     }
                     else
                     {
-                        if (inAdjacentGroup && !tooManyInAdjacentGroup)
-                        {
-                            onlyTwoAdjacent = true;
-                        }
+                        if (inAdjacentGroup && !tooManyInAdjacentGroup) onlyTwoAdjacent = true;
 
                         inAdjacentGroup = false;
                         tooManyInAdjacentGroup = false;

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode2019.Common.Intcode;
 
 namespace AdventOfCode2019
 {
@@ -45,30 +45,7 @@ namespace AdventOfCode2019
                 [2] = verb
             };
 
-            var index = 0;
-
-            while (index < program.Count)
-            {
-                switch (program[index])
-                {
-                    case 1:
-                        program[program[index + 3]] = program[program[index + 1]] + program[program[index + 2]];
-                        break;
-                    case 2:
-                        program[program[index + 3]] = program[program[index + 1]] * program[program[index + 2]];
-                        break;
-                    case 99:
-                        index = -1;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                if (index < 0) break;
-                index += 4;
-            }
-
-            return program[0];
+            return Intcode.RunDay2Program(program);
         }
     }
 }

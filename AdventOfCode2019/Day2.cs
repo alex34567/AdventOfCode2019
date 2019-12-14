@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AdventOfCode2019.Common.Intcode;
 
 namespace AdventOfCode2019
@@ -10,7 +9,7 @@ namespace AdventOfCode2019
 
         public (string, string?) GetAns(string[] input)
         {
-            var program = input[0].Split(',').Select(int.Parse).ToList();
+            var program = Intcode.ParseProgram(input[0]);
             const int part2Key = 19690720;
             var noun = 0;
             var verb = 0;

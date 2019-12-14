@@ -51,7 +51,7 @@ namespace AdventOfCode2019
 
             return commandLetter switch
             {
-                'U' => (Line) new UpDown(commandNumber, startPos, oldCost),
+                'U' => new UpDown(commandNumber, startPos, oldCost),
                 'D' => new UpDown(-commandNumber, startPos, oldCost),
                 'L' => new LeftRight(commandNumber, startPos, oldCost),
                 'R' => new LeftRight(-commandNumber, startPos, oldCost),

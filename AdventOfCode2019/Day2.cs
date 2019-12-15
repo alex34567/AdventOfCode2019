@@ -36,9 +36,9 @@ namespace AdventOfCode2019
             return (RunIter(program, 12, 2).ToString(), (100 * noun + verb).ToString());
         }
 
-        private static int RunIter(IEnumerable<int> inProgram, int noun, int verb)
+        private static long RunIter(IEnumerable<long> inProgram, long noun, long verb)
         {
-            var program = new List<int>(inProgram)
+            var program = new List<long>(inProgram)
             {
                 [1] = noun,
                 [2] = verb

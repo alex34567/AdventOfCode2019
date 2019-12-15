@@ -11,8 +11,8 @@ namespace AdventOfCode2019
         {
             var program = Intcode.ParseProgram(input[0]);
 
-            var part1 = Intcode.RunProgram(program, new[] {1}).SkipWhile(x => x == 0).Single();
-            var part2 = Intcode.RunProgram(program, new[] {5}).Single();
+            var part1 = Intcode.RunProgram(program, new[] {1L}).SkipWhile(x => x == 0).Single();
+            var part2 = Intcode.RunProgram(program, new[] {5L}).Single();
 
             return (part1.ToString(), part2.ToString());
         }

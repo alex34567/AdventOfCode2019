@@ -5,13 +5,13 @@ namespace AdventOfCode2019.Common.Intcode
 {
     public static class Intcode
     {
-        private static int FetchData(IList<int> program, int mode, ref int programCounter)
+        private static long FetchData(IList<long> program, int mode, ref int programCounter)
         {
-            int ret;
+            long ret;
             switch (mode)
             {
                 case 0:
-                    ret = program[program[programCounter]];
+                    ret = program[checked((int) program[programCounter])];
                     programCounter++;
                     break;
                 case 1:
@@ -25,14 +25,16 @@ namespace AdventOfCode2019.Common.Intcode
             return ret;
         }
 
-        private static IEnumerable<int> RunProgramInternal(IList<int> program, IEnumerable<int> inputNums)
+        private static IEnumerable<long> RunProgramInternal(IList<long> program, IEnumerable<long> inputNums)
         {
             using var inputs = inputNums.GetEnumerator();
             var programCounter = 0;
 
             while (programCounter < program.Count)
             {
-                var ins = program[programCounter];
+                var longIns = program[programCounter];
+                if (longIns > int.MaxValue) throw new InvalidOpcodeException();
+                var ins = (int) longIns;
                 programCounter++;
                 if (ins < 0) throw new InvalidOpcodeException();
 
@@ -53,13 +55,13 @@ namespace AdventOfCode2019.Common.Intcode
                     _ => 2
                 };
 
-                var param1 = 0;
-                var param2 = 0;
+                var param1 = 0L;
+                var param2 = 0L;
                 if (inputCount > 0) param1 = FetchData(program, mode1, ref programCounter);
 
                 if (inputCount > 1) param2 = FetchData(program, mode2, ref programCounter);
 
-                var res = 0;
+                var res = 0L;
                 switch (opcode)
                 {
                     case 1:
@@ -76,10 +78,10 @@ namespace AdventOfCode2019.Common.Intcode
                         yield return param1;
                         break;
                     case 5:
-                        if (param1 != 0) programCounter = param2;
+                        if (param1 != 0) programCounter = checked((int) param2);
                         break;
                     case 6:
-                        if (param1 == 0) programCounter = param2;
+                        if (param1 == 0) programCounter = checked((int) param2);
                         break;
                     case 7:
                         res = param1 < param2 ? 1 : 0;
@@ -107,7 +109,7 @@ namespace AdventOfCode2019.Common.Intcode
                     switch (mode3)
                     {
                         case 0:
-                            program[program[programCounter]] = res;
+                            program[checked((int) program[programCounter])] = res;
                             programCounter++;
                             break;
                         default:
@@ -118,23 +120,23 @@ namespace AdventOfCode2019.Common.Intcode
             }
         }
 
-        public static IList<int> ParseProgram(string program)
+        public static IList<long> ParseProgram(string program)
         {
-            return program.Split(',').Select(int.Parse).ToList();
+            return program.Split(',').Select(long.Parse).ToList();
         }
 
-        public static int RunDay2Program(IEnumerable<int> inProgram)
+        public static long RunDay2Program(IEnumerable<long> inProgram)
         {
-            var program = new List<int>(inProgram);
+            var program = new List<long>(inProgram);
 
-            if (RunProgramInternal(program, new int[0]).Any()) throw new InvalidOutputException();
+            if (RunProgramInternal(program, new long[0]).Any()) throw new InvalidOutputException();
 
             return program[0];
         }
 
-        public static IEnumerable<int> RunProgram(IEnumerable<int> program, IEnumerable<int> input)
+        public static IEnumerable<long> RunProgram(IEnumerable<long> program, IEnumerable<long> input)
         {
-            return RunProgramInternal(new List<int>(program), input);
+            return RunProgramInternal(new List<long>(program), input);
         }
     }
 }

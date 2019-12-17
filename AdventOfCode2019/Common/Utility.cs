@@ -34,5 +34,20 @@ namespace AdventOfCode2019.Common
             list.Reverse(index1 + 1, list.Count - index1 - 1);
             return true;
         }
+
+        public static int Gcd(int n, int m)
+        {
+            n = Math.Abs(n);
+            m = Math.Abs(m);
+
+            while (m != 0)
+            {
+                var newN = m;
+                m = n % m;
+                n = newN;
+            }
+
+            return n;
+        }
     }
 }

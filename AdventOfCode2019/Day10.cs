@@ -84,7 +84,6 @@ namespace AdventOfCode2019
                     {
                         if (grid[currentX, currentY])
                         {
-                            Console.Error.WriteLine($"{currentX}, {currentY}");
                             asteroidCount++;
                             destroyedAsteroid = true;
                             grid[currentX, currentY] = false;

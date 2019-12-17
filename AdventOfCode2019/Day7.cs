@@ -25,11 +25,6 @@ namespace AdventOfCode2019
             return (GetMaxPower(program, settings).ToString(), GetMaxPower(program, feedbackSettings).ToString());
         }
 
-        private static IEnumerable<long> FeedBackHelper(long[] value)
-        {
-            while (true) yield return value[0];
-            // ReSharper disable once IteratorNeverReturns
-        }
 
         private static long GetMaxPower(IList<long> program, List<long> settings)
         {
@@ -38,7 +33,7 @@ namespace AdventOfCode2019
             {
                 var currentFeedBack = new[] {0L};
                 var lastAmplifier =
-                    Intcode.RunProgram(program, new[] {settings[0]}.Concat(FeedBackHelper(currentFeedBack)));
+                    Intcode.RunProgram(program, new[] {settings[0]}.Concat(Intcode.InputHelper(currentFeedBack)));
                 for (var i = 1; i < 5; i++)
                     lastAmplifier = Intcode.RunProgram(program, new[] {settings[i]}.Concat(lastAmplifier));
 

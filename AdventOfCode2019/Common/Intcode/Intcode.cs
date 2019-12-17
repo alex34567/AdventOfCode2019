@@ -162,6 +162,13 @@ namespace AdventOfCode2019.Common.Intcode
             return RunProgramInternal(program, input);
         }
 
+        public static IEnumerable<long> InputHelper(long[] value)
+        {
+            while (true) yield return value[0];
+            // ReSharper disable once IteratorNeverReturns
+        }
+
+
         private struct Registers
         {
             public int ProgramCounter;

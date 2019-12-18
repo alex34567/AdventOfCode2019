@@ -49,5 +49,30 @@ namespace AdventOfCode2019.Common
 
             return n;
         }
+
+        public static int Lcm(int n, int m)
+        {
+            return Math.Abs(n * m) / Gcd(n, m);
+        }
+
+        public static long Gcd(long n, long m)
+        {
+            n = Math.Abs(n);
+            m = Math.Abs(m);
+
+            while (m != 0)
+            {
+                var newN = m;
+                m = n % m;
+                n = newN;
+            }
+
+            return n;
+        }
+
+        public static long Lcm(long n, long m)
+        {
+            return Math.Abs(n * m) / Gcd(n, m);
+        }
     }
 }
